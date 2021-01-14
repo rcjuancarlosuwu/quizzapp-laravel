@@ -27,7 +27,8 @@ class StudentController extends Controller
             'level_id' => $request->level_id,
             'block_id' => $request->block_id,
             'problem_id' => $request->problem_id,
-            'correct_questions_id' => implode(',', $request->correct_problems_id),
+            'correct_questions_id' => implode(',', $request->correct_questions_id),
+            'ppm'  => $request->ppm,
             'duration'  => $request->duration,
         ]);
     }

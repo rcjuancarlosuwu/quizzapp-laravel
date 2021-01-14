@@ -30,3 +30,5 @@ Route::post('/student/results', [StudentController::class, 'results']);
 // Reports
 Route::get('/student', [TeacherController::class, 'allStudents']);
 Route::get('/rooms', [TeacherController::class, 'allRooms']);
+Route::get('/student/{id}', [TeacherController::class, 'studentInfo']);
+Route::get('/rooms/{id}', [TeacherController::class, 'roomInfo']);

@@ -18,6 +18,7 @@ class CreateCodesTable extends Migration
             $table->string('code', 5);
             $table->string('description');
             $table->string('enrollment_codes');
+            $table->timestamps();
         });
     }
 

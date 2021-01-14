@@ -96,21 +96,25 @@ class DatabaseSeeder extends Seeder
                 }
             }
 
-            // Log::create([
-            //     'student_id' => $student->id,
-            //     'level_id' => $level_id,
-            //     'block_id' => 1,
-            //     'problem_id' => $problem->id,
-            //     'duration'  => 120,
-            // ]);
+            Log::create([
+                'student_id' => $student->id,
+                'level_id' => $level_id,
+                'block_id' => 1,
+                'problem_id' => $problem->id,
+                'correct_questions_id' => implode(',', [$problem->id]),
+                'ppm'  => 200,
+                'duration'  => 120,
+            ]);
 
-            // Log::create([
-            //     'student_id' => $student->id,
-            //     'level_id' => $level_id,
-            //     'block_id' => 2,
-            //     'problem_id' => $problem2->id,
-            //     'duration'  => 120,
-            // ]);
+            Log::create([
+                'student_id' => $student->id,
+                'level_id' => $level_id,
+                'block_id' => 2,
+                'problem_id' => $problem2->id,
+                'correct_questions_id' => implode(',', [$problem2->id]),
+                'ppm'  => null,
+                'duration'  => 120,
+            ]);
         }
     }
 }

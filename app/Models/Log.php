@@ -15,6 +15,7 @@ class Log extends Model
         'level_id',
         'block_id',
         'correct_questions_id',
+        'ppm',
         'duration',
     ];
 
@@ -35,7 +36,7 @@ class Log extends Model
 
     public function problem()
     {
-        return $this->hasOne(Problem::class);
+        return $this->belongsTo(Problem::class);
     }
 
     public function scores()
