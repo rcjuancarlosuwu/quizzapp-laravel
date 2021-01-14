@@ -27,6 +27,7 @@ class StudentController extends Controller
             'level_id' => $request->level_id,
             'block_id' => $request->block_id,
             'problem_id' => $request->problem_id,
+            'state_key' => $request->block_id == 1 ? (new CodeController())->generateRandomString(3) : $request->state_key,
             'correct_questions_id' => implode(',', $request->correct_questions_id),
             'ppm'  => $request->ppm,
             'duration'  => $request->duration,
@@ -35,7 +36,7 @@ class StudentController extends Controller
 
     public function progress(Request $request)
     {
-        return Student::with('latest_log:student_id,level_id,block_id')->find($request->student_id)->latest_log;
+        return Student::with('latest_log:student_id,level_id,block_id,state_key')->find($request->student_id)->latest_log;
     }
 
     public function results(Request $request)

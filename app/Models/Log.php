@@ -14,6 +14,7 @@ class Log extends Model
         'problem_id',
         'level_id',
         'block_id',
+        'state_key',
         'correct_questions_id',
         'ppm',
         'duration',

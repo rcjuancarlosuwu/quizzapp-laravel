@@ -34,22 +34,28 @@ class TeacherController extends Controller
         $response = [];
         $response['student'] = Student::with('school')->find($id);
         for ($i = 1; $i <= 3; $i++) {
-            $response['level_' . $i] = Log::with('problem.questions')
+            $logs = Log::with('problem.questions')
                 ->where('student_id', $id)
-                ->where('level_id', $i)->get()->map(function ($log) {
-                    return [
-                        "id" => $log->id,
-                        "level_id" => $log->level_id,
-                        "block_id" => $log->block_id,
-                        "score" => count(explode(',', $log->correct_questions_id)) * 4,
-                        "ppm" => $log->ppm,
-                        "duration" => $log->duration,
-                        "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
-                        "completed_at" => date("Y-m-d H:i:s", strtotime($log->created_at)),
-                        "problem" => $log->problem,
-                    ];
-                });
+                ->where('level_id', $i)->get();
+
+            $response['level_' . $i] = $logs->map(function ($log) {
+                return [
+                    "id" => $log->id,
+                    "state_key" => $log->state_key,
+                    "level_id" => $log->level_id,
+                    "block_id" => $log->block_id,
+                    "score" => count(explode(',', $log->correct_questions_id)) * 4,
+                    "ppm" => $log->ppm,
+                    "duration" => $log->duration,
+                    "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
+                    "completed_at" => date("Y-m-d H:i:s", strtotime($log->created_at)),
+                    "problem" => $log->problem,
+                ];
+            })->groupBy('state_key');
+
+            $response['level_' . $i . '_keys'] = $logs->unique('state_key')->pluck('state_key');
         }
+
         return $response;
     }
 
