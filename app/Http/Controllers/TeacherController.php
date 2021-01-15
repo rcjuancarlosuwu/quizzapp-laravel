@@ -5,11 +5,85 @@ namespace App\Http\Controllers;
 use App\Models\Code;
 use App\Models\Log;
 use App\Models\Student;
+use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
+
+    /**
+     * Sign up Teacher
+     */
+    public function signUp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email|unique:teachers',
+            'password' => 'required'
+        ]);
+        $teacher = Teacher::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        $tokenResult = $teacher->createToken('Personal Access Token', ['teacher']);
+        $token = $tokenResult->token;
+
+        return response()->json([
+            'message' => 'Successfully created teacher!',
+            "token" => $tokenResult->accessToken,
+            'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
+        ], 201);
+    }
+
+    /**
+     * Sign In and Create Token
+     */
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'remember_me' => 'boolean'
+        ]);
+
+        if (Teacher::where('email', $request->email)->count() <= 0) return response(array("message" => "Email does not exist"), 400);
+        $teacher = Teacher::where('email', $request->email)->first();
+
+        if (password_verify($request->password, $teacher->password)) {
+
+            $tokenResult = $teacher->createToken('Personal Access Token', ['student']);
+            $token = $tokenResult->token;
+
+            if ($request->remember_me)
+                $token->expires_at = Carbon::now()->addWeeks(1);
+            $token->save();
+
+            return response(
+                array(
+                    "message" => "Sign In Successful",
+                    "data" => [
+                        "teacher" => $teacher,
+                        "token" => $tokenResult->accessToken,
+                        'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
+                    ]
+                ),
+                200
+            );
+        } else {
+            return response(array("message" => "Wrong Credentials."), 400);
+        }
+    }
+
+    /**
+     * Return Teacher
+     */
+    public function teacher(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    // old controllers
     public function allStudents()
     {
         return Student::with('code', 'school')->get();
