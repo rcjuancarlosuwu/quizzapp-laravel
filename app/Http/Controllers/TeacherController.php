@@ -45,6 +45,7 @@ class TeacherController extends Controller
                     "level_id" => $log->level_id,
                     "block_id" => $log->block_id,
                     "score" => count(explode(',', $log->correct_questions_id)) * 4,
+                    "correct_questions_id" => $log->correct_questions_id,
                     "ppm" => $log->ppm,
                     "duration" => $log->duration,
                     "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
