@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
                 'level_id'  => $level_id,
                 'block_id'  => 2,
                 'type'  => 'video',
-                'body'  => 'KKpXpWCTlbo nivel ' . $i,
+                'body'  => 'KKpXpWCTlbo',
             ]);
 
             for ($k = 1; $k <= 4; $k++) {

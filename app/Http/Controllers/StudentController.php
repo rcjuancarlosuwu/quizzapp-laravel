@@ -36,7 +36,11 @@ class StudentController extends Controller
 
     public function progress(Request $request)
     {
-        return Student::with('latest_log:student_id,level_id,block_id,state_key')->find($request->student_id)->latest_log;
+
+
+        return Log::where('student_id', $request->student_id)
+            ->where('level_id', $request->level_id)->orderBy('created_at', 'asc')->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
+        // return Student::with('latest_log:student_id,level_id,block_id,state_key')->find()->latest_log;
     }
 
     public function results(Request $request)
@@ -49,13 +53,14 @@ class StudentController extends Controller
             "block_2" => 0,
             "average" => 0,
         ];
-
+        $results["ppm"] = 0;
         foreach ($logs as $log) {
             if ($log->block_id == 1) {
                 $results["block_1"] = count(explode(',', $log->correct_questions_id)) * 4;
             } else {
                 $results["block_2"] = count(explode(',', $log->correct_questions_id)) * 4;
             }
+            $results["ppm"] +=  $log->ppm;
         }
 
         $results["average"] = ($results["block_1"] + $results["block_2"]) / 2;

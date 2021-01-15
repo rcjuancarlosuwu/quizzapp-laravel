@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 // Code -> Students
 Route::post('/code', [CodeController::class, 'matchStudents']);
 Route::get('/code/{code}', [CodeController::class, 'invitedStudents']);
+Route::get('/room/{id}', [CodeController::class, 'roomInfo']);
+Route::put('/room/update', [CodeController::class, 'updateRoom']);
 
 Route::post('/student/register', [StudentController::class, 'register']);
 Route::post('/student/max_level', [StudentController::class, 'studentLevel']);
