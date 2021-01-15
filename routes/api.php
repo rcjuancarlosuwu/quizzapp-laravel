@@ -78,7 +78,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('room/{id}', [CodeController::class, 'roomInfo']);
             Route::put('room/update', [CodeController::class, 'updateRoom']);
             Route::get('rooms', [TeacherController::class, 'allRooms']);
-            Route::get('rooms/{id}', [TeacherController::class, 'roomInfo']);
         });
     });
 });

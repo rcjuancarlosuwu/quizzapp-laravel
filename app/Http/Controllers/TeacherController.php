@@ -133,8 +133,4 @@ class TeacherController extends Controller
 
         return $response;
     }
-
-    public function roomInfo()
-    {
-    }
 }
