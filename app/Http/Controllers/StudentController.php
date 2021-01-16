@@ -90,8 +90,6 @@ class StudentController extends Controller
         return response()->json($student);
     }
 
-    // old controllers
-
     public function register(Request $request)
     {
         Student::create($request->all());
@@ -106,7 +104,7 @@ class StudentController extends Controller
     public function saveLog(Request $request)
     {
         return Log::create([
-            'student_id' => $request->student_id,
+            'student_id' => $request->user()->id,
             'level_id' => $request->level_id,
             'block_id' => $request->block_id,
             'problem_id' => $request->problem_id,
@@ -119,16 +117,13 @@ class StudentController extends Controller
 
     public function progress(Request $request)
     {
-        return Log::where('student_id', $request->student_id)
-            ->where('level_id', $request->level_id)->orderBy('created_at', 'asc')->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
-        // return Student::with('latest_log:student_id,level_id,block_id,state_key')->find()->latest_log;
+        return Log::where('student_id', $request->user()->id)->where('level_id', $request->level_id)->orderBy('created_at', 'asc')->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
     }
 
     public function results(Request $request)
     {
         $logs = Log::where('level_id', $request->level_id)
-            ->where('student_id', $request->student_id)->orderBy('id', 'desc')->take(2)->get();
-
+            ->where('student_id', $request->user()->id)->orderBy('id', 'desc')->take(2)->get();
         $results = [
             "block_1" => 0,
             "block_2" => 0,
@@ -143,9 +138,7 @@ class StudentController extends Controller
             }
             $results["ppm"] +=  $log->ppm;
         }
-
         $results["average"] = ($results["block_1"] + $results["block_2"]) / 2;
-
         return $results;
     }
 }
