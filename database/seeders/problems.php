@@ -766,7 +766,67 @@ return [
         'level_id'  => 2,
         'block_id'  => 1,
         'type'  => 'text',
-        'body'  => 'empty',
+        'body'  => 'El presente trabajo es una investigación aplicada, en razón que se han utilizado los conocimientos y diseños básicos existentes sobre el tema de saneamiento sostenible las que fueran desarrolladas durante la ejecución del III Diplomado en el presente año.  Es de carácter explorativo porque aplica una propuesta utilizada actualmente por otros investigadores en la realidad Argentina por ejemplo para una posible solución sobre el tratamiento de las heces humanas con la ayuda de la lombriz californiana. y las aguas grises producto de la higiene necesaria luego del uso del sanitario seco no es el objetivo de este trabajo.
+<h1 class="font-semibold">Saneamiento seco, complementado con el uso de la lombriz californiana.</h1>
+El saneamiento seco comprende la deshidratación de excrementos y desviación de orinas. Existen los baños composteros y los baños con deshidratación y desviación de orina. Existen razones que nos permiten escoger los baños secos, he aquí algunas de ellas:
+    • Única solución sanitaria para zonas o regiones sin agua y/o sin saneamiento.
+    • Solución sin olores ni moscas, ofrece la misma higiene que un baño convencional
+    • Economía de tratamiento (50%).
+    • Economía en el uso de agua (50%).
+    • Tratamiento de los productos (orina separada de excrementos secos) hasta el rehúso.
+Sin embargo en nuestro caso  el BES deberá ser modificado en cuanto se refiere a la cámara de “secado”; en este compartimiento de 1.20m.se alojara un cilindro de 200 litros de capacidad (cilindros corrientes) las que se colocan sobre soportes con ruedas, y dos asas a 0.60m. desde la base del cilindro. En la parte interna aproximadamente a 0.75m. se coloca una malla metálica removible con separación de 0.03x0.03m. o un máximo de 0.05 x 0.05m. Sobre el cual se colocara inicialmente varias capas de papel periódico con sustrato alimenticio para la lombriz y una cantidad predeterminada de lombrices. Sobre ellas se adicionaran las excretas por medio de las deposiciones diarias. Es importante señalar que  cada vez que se use el inodoro se tenga que adicionar tierra sin cal ni ceniza  o aserrines y virutas Se deben preferir aquellos que provienen de  maderas blancas. Los que se originan de maderas rojas contienen un alto porcentaje de taninos y lignina. El tanino es un veneno que puede matar a la lombriz. Como norma general, se recomienda incorporar fibra vegetal larga a todo tipo de aserrines y virutas de maderas, dado  que la alta concentración de microorganismos que contienen los estiércoles permite acelerar el  rompimiento de la molécula de la lignina acelerando la descomposición del material. Si las condiciones de temperatura, ph., humedad, aireación, relación C/N  podemos asegurar que tendremos humus de lombriz  que  caerá al lecho de la cámara. Los restos fecales (deposiciones) caerán sobre un lecho preparado de sustrato en base a estiércol de cuy o conejo mezclado con un porcentaje de tierra, las que se colocan sobre papel periódico y estas a su vez sobre una malla de alambre galvanizado con espacios de 3x3 cm. Y un máximo de 5x5 cm.
+<h1 class="font-semibold">Tratamiento de orinas y heces</h1>
+La alta cantidad de nitrógeno que posee la orina inhibe el trabajo de las lombrices y de las bacterias en general. Además, agrega gran cantidad de aire dentro del sistema, lo cual genera mayor protagonismo de las bacterias anaeróbicas y desequilibra el sistema pudiend<h1 class="font-semibold">Tratamiento de orinas y heces</h1>o provocar olores. Sin embargo, la orina a diferencia de las heces no tiene elementos contaminantes y sí cuenta con gran cantidad de nutrientes. La orina es casi una sustancia nutritiva perfecta utilizable por las plantas. Se sabe que un adulto puede generar aproximadamente cerca de 300, a 500 litros de orina; de  260 a 430 Kg. de Nitrógeno al año; de 150 a 250 Kg. De Fósforo; y potasio la misma proporción que el fósforo por año. La orina es almacenada a la sombra para que se produzca su envejecimiento y pueda formarse amonio de manera que los nutrientes sean más fácilmente absorbidos por lo microorganismos. Para aligerarla y tener una mejor calidad de fertilizante, es preciso agregarle de 10 a 20 partes de agua y una pequeña cantidad de azúcar. Esta preparación se riega directamente sobre el suelo. Por otra parte, es recomendable evaluar los requerimientos de nutrientes y el funcionamiento metabólico de cada tipo de especie. Por ejemplo, no es recomendable aplicar este fertilizante en invierno o en días fríos porque hay plantas que lo absorben directamente (no lo procesan). A su vez, se recomienda no utilizar dicho fertilizante en las verduras de hoja durante los dos meses anteriores a su cosecha. En cuanto a las heces, según este sistema y teniendo las condiciones óptimas sería necesario solo una especie de supervisión, dado que en condiciones adecuadas de balance de C/N las lombrices se encargarían de su transformación en Humus las cuales serían recogidos cada periodo de tiempo que se calcularía según el número de usuarios y el volumen del depósito considerado. Estos baños en condiciones de mantenimiento adecuado no emiten olores, no se tiene que estar en contacto con las heces, lo que si es necesario tener en cuenta el adicionar la tierra o el aserrín o viruta con cada deposición.
+<h1 class="font-semibold">Tratamiento de Aguas grises</h1>
+Las aguas grises producto del uso de agua para el lavado de manos y ducha en ciertos casos (según decisión de instalación se calcularía las necesidades de tratamiento), serían tratados a través de Humedales artificiales subsuperficiales de flujo horizontal. Se propone la utilización de humedales subsuperficiales de flujo horizontal. Este tipo de humedal, es un sistema eficiente para la remoción de contaminantes de las aguas grises producidas por el lavado de manos después del uso del sanitario. El humedal propuesto debe ser proyectado para una familia de 6 habitantes. Se propone concretamente un humedal de flujo horizontal de 2.7 m2 con plantas que puedan adecuarse a cada zona. Podrían ser los carrizos.
+A = Q x DBO x CS
+A = 0.18 m3/dia x 150g/m3 x 10 g dia/m2 = 2.7 m2
+Se considera en este caso particular un humedal de 1 metro de ancho y 2.7 de largo. Las medidas del humedal serán manejados de acuerdo al lado más largo de la caseta sanitaria.
+<h1 class="font-semibold">CONDICIONES DE DISEÑO DEL BAÑO SECO</h1>
+Para el cálculo de la capacidad de procesamiento en este sistema sanitario, tendremos que calcular primero la cantidad de materia prima diaria o sea la cantidad de excreta depositada por persona/día multiplicada por la cantidad de personas. Considerando 150 gramos/persona día por seis personas usuarias hacen un total de 900 gramos. Si a ello le agregamos el material secante, en este caso tierra o aserrín j(0.3 ton/m3) se estará agregando por evento una taza, aproximadamente de 50 a 100 gramos. Tendremos aproximadamente 300 gramos, las que harían un total diario de: 1200 Kg. Considerando que cada lombriz puede digerir al día el valor de su peso. El peso de una lombriz adulta es de 1 gramo. Por lo que aproximadamente para digerir los 1200 gramos  necesitaríamos 1200 lombrices / día. Sin embargo dado que el índice de crecimiento de las lombrices es muy alta se tiene que estar monitoreando por lo menos mensualmente dicho crecimiento.
+<h1 class="font-semibold">Materiales y construcción</h1>
+Se debe buscar siempre la manera de adaptarse a las condiciones de la zona de intervención. Es recomendable usar bloques de cemento para la base, las que facilitan su transporte y construcción, así como la impermeabilización; y en la estructura superior, utilizar la madera, calamina (en zonas no lluviosas) (debido al ruido) y paja predominantemente. Es importante usar los materiales disponibles en la zona para la construcción de los servicios sanitarios.
+<h1 class="font-semibold">Ventilación de cámaras de excretas</h1>
+Cada cámara debe contar con tubo de ventilación de 4” que entra 30 cm en las cámaras y hacia el exterior debe estar protegido contra la lluvia con un sombrero o Tee como también un extractor esférico accionado por al flujo de aire.
+Reglamento Nacional de Edificaciones Según lo establecido en el inciso c del art. 29 de la norma A-010 de RNE: dos contrapasos más un contrapaso debe tener entre 0.60 y 0.64 m y los pasos debe tener como mínimo 0.25. Además el descanso mínimo de 0.90m de longitud.
+Según el inciso b del artículo 39 de la de la norma A-010 de RNE, los materiales de acabado de los ambientes de servicios sanitarios serán antideslizantes en pisos impermeables en paredes y de superficie lavable.
+Todos los baños deben contar con sumidero para evacuar el agua en caso de una posible inundación según lo establecido por el inciso c del artículo 39 de la norma A-010 de RNE
+Debe evitar el registro visual del interior de los ambientes con servicios sanitarios de uso público según el inciso f del art. 39 de la norma A-010 de RNE
+<h1 class="font-semibold" >Productos derivados del baño seco</h1>
+1. La orina
+De lo expresado por la Dra. Hoffman, la orina de cuatro personas por un año puede servir como fertilizante de 1,000 m2. Es importante reflexionar sobre la importancia de este producto para la agricultura orgánica. Además en los casos de vivienda rural reduce los costos de transporte de fertilizantes hasta los campos de cultivo.
+2. El Humus de lombriz
+Las lombrices son una parte muy importante del proceso de fertilidad de la tierra. Muy pocos conocen los favorables efectos de éstas, pues no solo se dedican a devorar la materia orgánica que encuentran, sino que cumplen otras muchas funciones: devuelven la materia orgánica de forma completamente descompuesta, ayudan a diluir ciertos minerales transformándolos en suelo orgánico y mezclan ciertas sustancias vegetales con otras situadas en las zonas más profundas procedentes del subsuelo favoreciendo el equilibrio entre arcilla y humedad.
+<h1 class="font-semibold" >USO Y MANTENIMIENTO DEL SISTEMA</h1>
+Es muy importante la capacitación para el buen uso y mantenimiento del baño seco. En lo que se refiere al uso podemos tomar la propuesta de Rotaria del Perú SAC, para la capacitación de los usuarios.
+En cuanto al Mantenimiento el baño seco  con la opción de tratamiento de excretas con lombrices  difiere  de la propuesta Rotaria que se muestra  como el ítem B. por el solo hecho de que  bajo condiciones de cuidado mínimos. Las lombrices diariamente estarían convirtiendo las heces en humus, pero sería necesario vigilar que no falten los sustratos para la supervivencia de las lombrices dado que el crecimiento poblacional es alto.
+
+
+
+
+
+
+<h1 class="font-semibold" >COMO SE DEBE USAR EL BAÑO ECOLOGICO:</h1>
+- El trono o bidet, con separador de orinas deberá permanecer siempre cerrado. Tal como se aprecia en la figura. Mientras no se esté usando.
+-Levantar la tapa y acomodarse adecuadamente para que las heces no se vayan a juntar con la orina o viceversa.
+- Una vez terminado su uso agregar una taza de material (tierra o aserrín) así también el papel higiénico usado.
+- Nunca echar ni agua ni orine hacia el depósito de las heces.
+- Los hombres pueden hacer uso del urinario, en caso que se presenten olores ya sea en el urinario o en la tasa separadora, limpiarlo con agua jabonosa teniendo cuidado de que no se vierta al depósito de las heces.
+- Después del uso la tasa deberá de cerrarse nuevamente
+<h1 class="font-semibold">MANTENIMIENTO DEL BAÑO ECOLOGICO </h1>
+- El mantenimiento de este baño, se reduce de gran manera a labores de supervisión, después de la primera operación de acondicionamiento de la cama para las lombrices dentro del cilindro y sobre la malla de .03 x 0.03 m.
+- Esta preparación consiste en acomodar papel en varias capas de preferencia papel de envoltura o sacos de azúcar o periódico colocándolas y mojándolas con rocíos de agua, sobre la cual se extenderá una capa de tierra cernida mezclada con estiércol de cuy conejo o vacuno con cierta humedad, sobre ella se colocaran las lombrices cubriéndolas luego con otra capa de  la mezcla de estiércol y tierra. Se deberá tener cuidado en la humedad de la mezcla.
+- Se ubicara dentro de la cámara por debajo del bidet para que reciba las heces.
+- Se deberá tener cuidado de que la cámara se halle cerrada adecuadamente para evitar flujo de aire que afecte a las lombrices teniendo en cuenta que deberá tener temperaturas promedio de hasta 25  grados centígrados.
+- Así mismo se deberá cerrar o cubrir los posibles accesos de insecto como moscas poniendo mallas finas inclusive en los respiraderos.
+- Se deberá supervisar una vez por mes por lo menos. Para revisar el crecimiento de la población dado que se aparean cada 7 días después de los tres meses de edad y son hermafroditas.
+-  El humus de lombriz  que se deposita en la parte baja del cilindro se extraerá abriendo la ventana del compartimiento que para este caso tiene una base con una inclinación para el fácil manejo de este material.
+- Una vez retirado el humus se deberá zarandear para separar tanto materiales que hayan caído como las lombrices que se hayan caído en ella.
+- Luego se procederá a llevarlo a un depósito hasta que se vaya a usar en la fertilización de las plantas.
+- En cuanto a la orina esta se deposita como hemos mencionado en galoneras las cuales una vez llenos se retiran a unos sitios oscuros para su maduración cambiándose con otro recipiente cada vez.
+- Este orine tendrá que estar en el depósito un mínimo de un mes de modo que cualquier germen sea destruido en ese tiempo.
+- Luego se usará como abono diluyéndolo con agua y teniendo cuidado de las temperaturas ambientales a las cuales se aplican. Asimismo teniendo cuidado a qué planta se va a aplicar.
+',
         'questions' => [
             [
                 'question'  => 'Un baño seco …',
@@ -1013,7 +1073,7 @@ return [
                         'alternative' => 'La expansión de los videojuegos y su peligro inherente.'
                     ],
                     [
-                        'is_correct' => 0,
+                        'is_correct' => 1,
                         'alternative' => 'Evolución de los videojuegos.'
                     ],
                 ]
@@ -1091,7 +1151,7 @@ return [
                         'alternative' => 'las investigaciones sobre los videojuegos continuarían.'
                     ],
                     [
-                        'is_correct' => 0,
+                        'is_correct' => 1,
                         'alternative' => 'no se habrían desarrollado videojuegos de gran calidad.'
                     ],
                 ]
