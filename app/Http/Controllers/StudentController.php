@@ -53,7 +53,7 @@ class StudentController extends Controller
         ]);
 
         if (Student::where('enrollment_code', $request->enrollment_code)->count() <= 0) return response(array("message" => "Enrollment code does not exist"), 400);
-        $student = Student::with('school')->where('enrollment_code', $request->enrollment_code)->first();
+        $student = Student::with('school', 'code:id,code')->where('enrollment_code', $request->enrollment_code)->first();
 
         if ($request->nickname == $student->nickname) {
 
@@ -86,14 +86,9 @@ class StudentController extends Controller
     public function student(Request $request)
     {
         $student = $request->user();
-        $student->school = School::find($student->school_id);
+        $student->school = School::select('school')->find($student->school_id);
+        $student->code = Code::select('code')->find($student->school_id);
         return response()->json($student);
-    }
-
-    public function register(Request $request)
-    {
-        Student::create($request->all());
-        return 'token';
     }
 
     public function studentLevel(Request $request)
@@ -109,7 +104,7 @@ class StudentController extends Controller
             'block_id' => $request->block_id,
             'problem_id' => $request->problem_id,
             'state_key' => $request->block_id == 1 ? (new CodeController())->generateRandomString(3) : $request->state_key,
-            'correct_questions_id' => implode(',', $request->correct_questions_id),
+            'correct_questions_id' => $request->correct_questions_id == [] ? null : implode(',', $request->correct_questions_id),
             'ppm'  => $request->ppm,
             'duration'  => $request->duration,
         ]);
@@ -117,7 +112,9 @@ class StudentController extends Controller
 
     public function progress(Request $request)
     {
-        return Log::where('student_id', $request->user()->id)->where('level_id', $request->level_id)->orderBy('created_at', 'asc')->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
+        return Log::where('student_id', $request->user()->id)
+            ->where('level_id', $request->level_id)->orderBy('created_at', 'asc')
+            ->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
     }
 
     public function results(Request $request)
@@ -132,9 +129,9 @@ class StudentController extends Controller
         $results["ppm"] = 0;
         foreach ($logs as $log) {
             if ($log->block_id == 1) {
-                $results["block_1"] = count(explode(',', $log->correct_questions_id)) * 4;
+                $results["block_1"] = $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 4;
             } else {
-                $results["block_2"] = count(explode(',', $log->correct_questions_id)) * 4;
+                $results["block_2"] = $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 4;
             }
             $results["ppm"] +=  $log->ppm;
         }

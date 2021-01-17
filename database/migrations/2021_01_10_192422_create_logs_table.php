@@ -20,7 +20,7 @@ class CreateLogsTable extends Migration
             $table->foreignId('block_id')->constrained();
             $table->foreignId('problem_id')->constrained();
             $table->string('state_key');
-            $table->string('correct_questions_id');
+            $table->string('correct_questions_id')->nullable();
             $table->integer('ppm')->nullable();
             $table->integer('duration');
             $table->timestamps();

@@ -52,7 +52,7 @@ class TeacherController extends Controller
 
         if (password_verify($request->password, $teacher->password)) {
 
-            $tokenResult = $teacher->createToken('Personal Access Token', ['student']);
+            $tokenResult = $teacher->createToken('Personal Access Token', ['teacher']);
             $token = $tokenResult->token;
 
             if ($request->remember_me)

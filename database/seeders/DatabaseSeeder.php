@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 'body'  => 'texto de nivel ' . $i,
             ]);
 
-            for ($k = 1; $k <= 4; $k++) {
+            for ($k = 1; $k <= 5; $k++) {
                 $question = Question::create([
                     'problem_id'  => $problem->id,
                     'question'  => 'Pregunta ' . $k,
