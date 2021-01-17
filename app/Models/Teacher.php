@@ -13,6 +13,7 @@ class Teacher extends Authenticatable
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $fillable = [
+        'name',
         'email',
         'password',
     ];

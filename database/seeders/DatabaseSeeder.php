@@ -13,6 +13,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Question;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,11 +28,25 @@ class DatabaseSeeder extends Seeder
         Block::factory(2)->create();
 
         Teacher::create([
-            'email' => 'profesor@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'name' => 'David Hurtado Tiza',
+            'email' => 'dahuti.epg7@gmail.com',
+            'password' => Hash::make('DHTG7'),
+        ]);
+        Teacher::create([
+            'name' => 'Miguel Ángel Travezaño Aldana',
+            'email' => 'migueltravezano@gmail.com',
+            'password' => Hash::make('MATNO'),
+        ]);
+        Teacher::create([
+            'name' => 'Sonia Amandy Sinche Charca',
+            'email' => 'amandyta1012@gmail.com',
+            'password' => Hash::make('SAS12'),
         ]);
 
-        School::factory(5)->create();
+        $facultades = require 'facultades.php';
+        for ($i = 0; $i < count($facultades); $i++) {
+            School::create(['school' => $facultades[$i]]);
+        }
 
         $code = Code::create(['code' => "alV12", 'description' => "Esta sala es para", 'enrollment_codes' => "2018100565K"]);
 
