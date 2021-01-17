@@ -118,12 +118,12 @@ class TeacherController extends Controller
                     "state_key" => $log->state_key,
                     "level_id" => $log->level_id,
                     "block_id" => $log->block_id,
-                    "score" => count(explode(',', $log->correct_questions_id)) * 4,
+                    "score" => $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 5,
                     "correct_questions_id" => explode(',', $log->correct_questions_id),
                     "ppm" => $log->ppm,
                     "duration" => $log->duration,
                     "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
-                    "completed_at" => date("Y-m-d H:i:s", strtotime($log->created_at)),
+                    "completed_at" => date("Y-m- H:i:s", strtotime($log->created_at)),
                     "problem" => $log->problem,
                 ];
             })->groupBy('state_key');

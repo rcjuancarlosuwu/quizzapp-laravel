@@ -87,7 +87,7 @@ class StudentController extends Controller
     {
         $student = $request->user();
         $student->school = School::select('school')->find($student->school_id);
-        $student->code = Code::select('code')->find($student->school_id);
+        $student->code = Code::select('code')->find($student->code_id);
         return response()->json($student);
     }
 
@@ -119,7 +119,7 @@ class StudentController extends Controller
 
     public function results(Request $request)
     {
-        $logs = Log::where('level_id', $request->level_id)
+        $logs = Log::with('problem.questions')->where('level_id', $request->level_id)
             ->where('student_id', $request->user()->id)->orderBy('id', 'desc')->take(2)->get();
         $results = [
             "block_1" => 0,
@@ -129,9 +129,9 @@ class StudentController extends Controller
         $results["ppm"] = 0;
         foreach ($logs as $log) {
             if ($log->block_id == 1) {
-                $results["block_1"] = $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 4;
+                $results["block_1"] = $log->correct_questions_id == null ? 0 : (count(explode(',', $log->correct_questions_id)) * $log->problem->questions[0]->value);
             } else {
-                $results["block_2"] = $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 4;
+                $results["block_2"] = $log->correct_questions_id == null ? 0 : (count(explode(',', $log->correct_questions_id)) * $log->problem->questions[0]->value);
             }
             $results["ppm"] +=  $log->ppm;
         }

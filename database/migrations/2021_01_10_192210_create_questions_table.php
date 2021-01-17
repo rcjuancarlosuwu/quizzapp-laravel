@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->foreignId('problem_id')->constrained();
             $table->string('question');
-            $table->integer('value');
+            $table->string('value');
         });
     }
 
