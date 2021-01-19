@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Models\Code;
 use App\Models\Log;
 use App\Models\Student;
@@ -9,6 +10,7 @@ use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TeacherController extends Controller
 {
@@ -83,11 +85,17 @@ class TeacherController extends Controller
         return response()->json($request->user());
     }
 
+    public function allStudentsExcel()
+    {
+        return Excel::download(new StudentExport, 'estudiantes.xlsx');
+    }
+
     // old controllers
     public function allStudents()
     {
         return Student::with('code', 'school')->get();
     }
+
 
     public function allRooms()
     {

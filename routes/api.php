@@ -43,6 +43,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('logout', [AuthController::class, 'logout']);
 
             Route::get('student', [TeacherController::class, 'allStudents']);
+            Route::get('student/excel', [TeacherController::class, 'allStudentsExcel']);
             Route::get('student/{id}', [TeacherController::class, 'studentInfo']);
 
             Route::post('room', [CodeController::class, 'matchStudents']);
