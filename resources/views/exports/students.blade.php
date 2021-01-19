@@ -1,15 +1,23 @@
 <table>
     <thead>
     <tr>
-        <th>Nombre</th>
-        <th>Email</th>
+        <th>Código</th>
+        <th>Pseudónimo</th>
+        <th>Correo</th>
+        <th>Facultad</th>
+        <th>Semestre</th>
+        <th>Fecha de registro</th>
     </tr>
     </thead>
     <tbody>
     @foreach($students as $student)
         <tr>
-            <td>{{ $student->name }}</td>
+            <td>{{ $student->enrollment_code }}</td>
+            <td>{{ $student->nickname }}</td>
             <td>{{ $student->email }}</td>
+            <td>{{ $student->school->school }}</td>
+            <td>{{ $student->semester }}</td>
+            <td>{{ $student->created_at }}</td>
         </tr>
     @endforeach
     </tbody>
