@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Problem;
 
 class ProblemController extends Controller
@@ -16,8 +17,16 @@ class ProblemController extends Controller
 
     public function problemsByStateKey($state_key)
     {
-        return Problem::whereHas('log', function ($q) use ($state_key) {
-            $q->where('state_key', $state_key);
-        })->get();
+        return Log::with('problem.questions')->where('state_key', $state_key)->get()->map(function ($l) {
+            return [
+                'problem' => $l->problem->body,
+                'questions' => $l->problem->questions->map(function ($q) use ($l) {
+                    return [
+                        'question' => $q->question,
+                        'correct' => in_array($q->id, $l->correct_questions_id == null ? [] : explode(',', $l->correct_questions_id))
+                    ];
+                })
+            ];
+        });
     }
 }

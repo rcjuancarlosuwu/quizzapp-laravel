@@ -16,6 +16,11 @@ class Problem extends Model
         'body',
     ];
 
+    public function log()
+    {
+        return $this->hasMany(Log::class);
+    }
+
     public function block()
     {
         return $this->belongsTo(Block::class);
