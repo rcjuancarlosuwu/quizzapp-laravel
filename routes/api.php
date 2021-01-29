@@ -8,7 +8,6 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('student/excel', [TeacherController::class, 'allStudentsExcel']);
 
 Route::group(['prefix' => 'v1'], function () {
 
@@ -51,6 +50,10 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('room/{id}', [CodeController::class, 'roomInfo']);
             Route::put('room/update', [CodeController::class, 'updateRoom']);
             Route::get('rooms', [TeacherController::class, 'allRooms']);
+
+            Route::get('student/excel', [TeacherController::class, 'allStudentsExcel']);
+
+            Route::get('problems/{state_key}', [ProblemController::class, 'problemsByStateKey']);
         });
     });
 });
