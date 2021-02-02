@@ -20,6 +20,7 @@ class ProblemController extends Controller
         return Log::with('problem.questions')->where('state_key', $state_key)->get()->map(function ($l) {
             return [
                 'problem' => $l->problem->body,
+                'appreciation' => $l->appreciation,
                 'questions' => $l->problem->questions->map(function ($q) use ($l) {
                     return [
                         'question' => $q->question,
