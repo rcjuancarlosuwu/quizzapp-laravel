@@ -23,6 +23,7 @@ class CreateLogsTable extends Migration
             $table->string('correct_questions_id')->nullable();
             $table->integer('ppm')->nullable();
             $table->integer('duration');
+            $table->text('appreciation')->nullable();
             $table->timestamps();
         });
     }

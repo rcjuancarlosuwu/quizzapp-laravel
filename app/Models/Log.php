@@ -18,6 +18,7 @@ class Log extends Model
         'correct_questions_id',
         'ppm',
         'duration',
+        'appreciation'
     ];
 
     public function student()

@@ -133,6 +133,7 @@ class TeacherController extends Controller
                     "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
                     "completed_at" => date("Y-m- H:i:s", strtotime($log->created_at)),
                     "problem" => $log->problem,
+                    "appreciation" => $log->appreciation,
                 ];
             })->groupBy('state_key');
 

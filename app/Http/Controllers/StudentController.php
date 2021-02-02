@@ -107,6 +107,7 @@ class StudentController extends Controller
             'correct_questions_id' => $request->correct_questions_id == [] ? null : implode(',', $request->correct_questions_id),
             'ppm'  => $request->ppm,
             'duration'  => $request->duration,
+            'appreciation'  => $request->appreciation,
         ]);
     }
 
