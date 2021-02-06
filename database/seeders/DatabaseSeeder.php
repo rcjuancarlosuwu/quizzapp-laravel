@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Alternative;
+use App\Models\Attempts;
 use App\Models\Block;
 use App\Models\Code;
 use App\Models\Level;
@@ -50,13 +51,17 @@ class DatabaseSeeder extends Seeder
 
         $code = Code::create(['code' => "alV12", 'description' => "Esta sala es para", 'enrollment_codes' => "2018100565K"]);
 
-        Student::create([
-            'code_id' => $code->id,
-            'enrollment_code' => '2018100565K',
-            'nickname' => 'Jurgen',
-            'email' => 'e_2018100565K@uncp.edu.pe',
-            'school_id' => 1,
-            'semester' => 2,
+        Attempts::create([
+            'student_id' => Student::create([
+                'code_id' => $code->id,
+                'enrollment_code' => '2018100565K',
+                'nickname' => 'Jurgen',
+                'email' => 'e_2018100565K@uncp.edu.pe',
+                'school_id' => 1,
+                'semester' => 2,
+            ])->id,
+            'attempt' => 1,
+            'xp' => 0
         ]);
 
         $problems = require 'problems.php';

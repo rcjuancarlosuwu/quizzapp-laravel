@@ -40,4 +40,9 @@ class Student extends Authenticatable
     {
         return $this->hasOne(Log::class)->latest();
     }
+
+    public function attempt()
+    {
+        return $this->hasMany(Attempts::class);
+    }
 }

@@ -15,13 +15,15 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
+            $table->foreignId('attempt_id')->constrained();
+            $table->foreignId('student_id')->constrained(); // delete
             $table->foreignId('level_id')->constrained();
             $table->foreignId('block_id')->constrained();
             $table->foreignId('problem_id')->constrained();
             $table->string('state_key');
             $table->string('correct_questions_id')->nullable();
             $table->integer('ppm')->nullable();
+            $table->integer('ppm_points')->nullable();
             $table->integer('duration');
             $table->text('appreciation')->nullable();
             $table->timestamps();

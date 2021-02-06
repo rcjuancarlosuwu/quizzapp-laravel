@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attempts;
 use App\Models\Code;
 use App\Models\Log;
+use App\Models\Question;
 use App\Models\School;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -32,6 +34,13 @@ class StudentController extends Controller
             'nickname' => $request->nickname,
             'semester' => $request->semester
         ]);
+
+        Attempts::create([
+            'student_id' => $student->id,
+            'attempt' => 1,
+            'xp' => 0
+        ]);
+
         $tokenResult = $student->createToken('Personal Access Token', ['student']);
         $token = $tokenResult->token;
         return response()->json([
@@ -88,17 +97,41 @@ class StudentController extends Controller
         $student = $request->user();
         $student->school = School::select('school')->find($student->school_id);
         $student->code = Code::select('code')->find($student->code_id);
+        $student->attempts = Attempts::where('student_id', $student->id)->get(['attempt', 'xp']);
         return response()->json($student);
     }
 
     public function studentLevel(Request $request)
     {
-        return Log::where('student_id', $request->user()->id)->max('level_id');
+        $log = Log::where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('student_id', $request->user()->id)->get();
+        $max_level = $log->max('level_id') ?? 1;
+        return [
+            'max_level' => $max_level,
+            'xp1' => $log->where('level_id', 1)->sum('scores'),
+            'xp2' => $log->where('level_id', 2)->sum('scores'),
+            'xp3' => $log->where('level_id', 3)->sum('scores')
+        ];
     }
 
     public function saveLog(Request $request)
     {
+        // experience points
+        $point_value = 20 / Question::where('problem_id', $request->problem_id)->count();
+        $attempt = $this->currentAttempt($request->user()->id);
+        $attempt->xp += (count($request->correct_questions_id) * $point_value) + ($request->ppm_points ?? 0);
+        $attempt->save();
+
+        // new attempt
+        if ($request->level_id == 3 && $request->block_id == 2) {
+            Attempts::create([
+                'student_id' => $request->user()->id,
+                'attempt' => $attempt->attempt + 1,
+                'xp' => 0
+            ]);
+        }
+
         return Log::create([
+            'attempt_id' => $attempt->id,
             'student_id' => $request->user()->id,
             'level_id' => $request->level_id,
             'block_id' => $request->block_id,
@@ -106,6 +139,7 @@ class StudentController extends Controller
             'state_key' => $request->block_id == 1 ? (new CodeController())->generateRandomString(3) : $request->state_key,
             'correct_questions_id' => $request->correct_questions_id == [] ? null : implode(',', $request->correct_questions_id),
             'ppm'  => $request->ppm,
+            'ppm_points'  => $request->ppm_points,
             'duration'  => $request->duration,
             'appreciation'  => $request->appreciation,
         ]);
@@ -113,14 +147,16 @@ class StudentController extends Controller
 
     public function progress(Request $request)
     {
-        return Log::where('student_id', $request->user()->id)
-            ->where('level_id', $request->level_id)->orderBy('created_at', 'asc')
+
+        return Log::where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('student_id', $request->user()->id)
+            ->where('level_id', $request->level_id)
+            ->orderBy('created_at', 'asc')
             ->get(['student_id', 'level_id', 'block_id', 'state_key'])->last();
     }
 
     public function results(Request $request)
     {
-        $logs = Log::with('problem.questions')->where('level_id', $request->level_id)
+        $logs = Log::with('problem.questions')->where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('level_id', $request->level_id)
             ->where('student_id', $request->user()->id)->orderBy('id', 'desc')->take(2)->get();
         $results = [
             "block_1" => 0,
@@ -138,5 +174,11 @@ class StudentController extends Controller
         }
         $results["average"] = ($results["block_1"] + $results["block_2"]) / 2;
         return $results;
+    }
+
+
+    public function currentAttempt($id)
+    {
+        return Attempts::where('student_id', $id)->orderBy('attempt', 'desc')->first();
     }
 }

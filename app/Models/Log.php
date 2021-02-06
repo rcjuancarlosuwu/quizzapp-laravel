@@ -10,6 +10,7 @@ class Log extends Model
     use HasFactory;
 
     protected $fillable = [
+        'attempt_id',
         'student_id',
         'problem_id',
         'level_id',
@@ -17,6 +18,7 @@ class Log extends Model
         'state_key',
         'correct_questions_id',
         'ppm',
+        'ppm_points',
         'duration',
         'appreciation'
     ];
@@ -44,5 +46,10 @@ class Log extends Model
     public function scores()
     {
         return $this->hasMany(Score::class);
+    }
+
+    public function attempt()
+    {
+        return $this->belongsTo(Attempts::class);
     }
 }
