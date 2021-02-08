@@ -132,7 +132,7 @@ class TeacherController extends Controller
                         "state_key" => $log->state_key,
                         "level_id" => $log->level_id,
                         "block_id" => $log->block_id,
-                        "score" => $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 5,
+                        "score" => $log->score,
                         "correct_questions_id" => explode(',', $log->correct_questions_id),
                         "ppm" => $log->ppm,
                         "duration" => $log->duration,
