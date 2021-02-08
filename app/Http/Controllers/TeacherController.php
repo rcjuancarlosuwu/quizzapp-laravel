@@ -99,7 +99,6 @@ class TeacherController extends Controller
         return Student::with('code', 'school')->get();
     }
 
-
     public function allRooms()
     {
         return Code::all()->map(function ($code) {

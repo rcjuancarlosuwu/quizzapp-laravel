@@ -104,9 +104,8 @@ class StudentController extends Controller
     public function studentLevel(Request $request)
     {
         $log = Log::where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('student_id', $request->user()->id)->get();
-        $max_level = $log->max('level_id');
         return [
-            'max_level' => $max_level,
+            'max_level' => $log->max('level_id') ?? 1,
             'xp1' => $log->where('level_id', 1)->sum('score'),
             'xp2' => $log->where('level_id', 2)->sum('score'),
             'xp3' => $log->where('level_id', 3)->sum('score')
