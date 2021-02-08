@@ -8,7 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('gchartexcel/{code_id}', [TeacherController::class, 'gChartExcel']);
 
 Route::group(['prefix' => 'v1'], function () {
 
@@ -55,6 +55,10 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('student/excel', [TeacherController::class, 'allStudentsExcel']);
 
             Route::get('problems/{state_key}', [ProblemController::class, 'problemsByStateKey']);
+
+            Route::get('ichart/{student_id}/{attempt_id}', [StudentController::class, 'iChart']);
+            Route::get('gchart/{code_id}', [TeacherController::class, 'gChart']);
+            Route::get('gchartexcel/{code_id}', [TeacherController::class, 'gChartExcel']);
         });
     });
 });

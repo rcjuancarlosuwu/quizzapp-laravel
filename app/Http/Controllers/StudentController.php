@@ -104,12 +104,12 @@ class StudentController extends Controller
     public function studentLevel(Request $request)
     {
         $log = Log::where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('student_id', $request->user()->id)->get();
-        $max_level = $log->max('level_id') ?? 1;
+        $max_level = $log->max('level_id');
         return [
             'max_level' => $max_level,
-            'xp1' => $log->where('level_id', 1)->sum('scores'),
-            'xp2' => $log->where('level_id', 2)->sum('scores'),
-            'xp3' => $log->where('level_id', 3)->sum('scores')
+            'xp1' => $log->where('level_id', 1)->sum('score'),
+            'xp2' => $log->where('level_id', 2)->sum('score'),
+            'xp3' => $log->where('level_id', 3)->sum('score')
         ];
     }
 
@@ -118,17 +118,9 @@ class StudentController extends Controller
         // experience points
         $point_value = 20 / Question::where('problem_id', $request->problem_id)->count();
         $attempt = $this->currentAttempt($request->user()->id);
-        $attempt->xp += (count($request->correct_questions_id) * $point_value) + ($request->ppm_points ?? 0);
+        $xp = (count($request->correct_questions_id) * $point_value) + ($request->ppm_points ?? 0);
+        $attempt->xp += $xp;
         $attempt->save();
-
-        // new attempt
-        if ($request->level_id == 3 && $request->block_id == 2) {
-            Attempts::create([
-                'student_id' => $request->user()->id,
-                'attempt' => $attempt->attempt + 1,
-                'xp' => 0
-            ]);
-        }
 
         return Log::create([
             'attempt_id' => $attempt->id,
@@ -139,6 +131,7 @@ class StudentController extends Controller
             'state_key' => $request->block_id == 1 ? (new CodeController())->generateRandomString(3) : $request->state_key,
             'correct_questions_id' => $request->correct_questions_id == [] ? null : implode(',', $request->correct_questions_id),
             'ppm'  => $request->ppm,
+            'score'  => $xp,
             'ppm_points'  => $request->ppm_points,
             'duration'  => $request->duration,
             'appreciation'  => $request->appreciation,
@@ -156,29 +149,62 @@ class StudentController extends Controller
 
     public function results(Request $request)
     {
+
         $logs = Log::with('problem.questions')->where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('level_id', $request->level_id)
             ->where('student_id', $request->user()->id)->orderBy('id', 'desc')->take(2)->get();
         $results = [
-            "block_1" => 0,
-            "block_2" => 0,
-            "average" => 0,
+            "block_1" => $logs->where('block_id', 1)->sum('score'),
+            "block_2" => $logs->where('block_id', 2)->sum('score'),
+            "ppm" => $logs->sum('ppm'),
+            "average" => $logs->avg('score') ?? 0,
         ];
-        $results["ppm"] = 0;
-        foreach ($logs as $log) {
-            if ($log->block_id == 1) {
-                $results["block_1"] = $log->correct_questions_id == null ? 0 : (count(explode(',', $log->correct_questions_id)) * $log->problem->questions[0]->value);
-            } else {
-                $results["block_2"] = $log->correct_questions_id == null ? 0 : (count(explode(',', $log->correct_questions_id)) * $log->problem->questions[0]->value);
-            }
-            $results["ppm"] +=  $log->ppm;
+        if ($request->level_id == 3) {
+            Attempts::create([
+                'student_id' => $request->user()->id,
+                'attempt' => Attempts::where('student_id', $request->user()->id)->max('attempt') + 1,
+                'xp' => 0
+            ]);
         }
-        $results["average"] = ($results["block_1"] + $results["block_2"]) / 2;
         return $results;
     }
-
 
     public function currentAttempt($id)
     {
         return Attempts::where('student_id', $id)->orderBy('attempt', 'desc')->first();
+    }
+
+    public function iChart($student_id, $attempt_id)
+    {
+        $logs = Log::where('attempt_id', $attempt_id)->where('student_id', $student_id)->get();
+        return [
+            'scores' => [
+                [
+                    'name' => 'Nivel 1',
+                    'value' => $logs->where('level_id', 1)->sum('score')
+                ],
+                [
+                    'name' => 'Nivel 2',
+                    'value' => $logs->where('level_id', 2)->sum('score')
+                ],
+                [
+                    'name' => 'Nivel 3',
+                    'value' => $logs->where('level_id', 3)->sum('score')
+                ],
+            ],
+            'ppms' => [
+                [
+                    'name' => 'Nivel 1',
+                    'value' => $logs->where('level_id', 1)->sum('ppm')
+                ],
+                [
+                    'name' => 'Nivel 2',
+                    'value' => $logs->where('level_id', 2)->sum('ppm')
+                ],
+                [
+                    'name' => 'Nivel 3',
+                    'value' => $logs->where('level_id', 3)->sum('ppm')
+                ],
+            ],
+        ];
     }
 }

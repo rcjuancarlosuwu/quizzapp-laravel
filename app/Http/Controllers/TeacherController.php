@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\gChartExcel;
 use App\Exports\StudentExport;
+use App\Models\Attempts;
 use App\Models\Code;
 use App\Models\Log;
 use App\Models\Student;
 use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -115,31 +118,77 @@ class TeacherController extends Controller
     {
         $response = [];
         $response['student'] = Student::with('school')->find($id);
-        for ($i = 1; $i <= 3; $i++) {
-            $logs = Log::with('problem.questions')
-                ->where('student_id', $id)
-                ->where('level_id', $i)->get();
+        $attemtps = Attempts::where('student_id', $id)->get();
+        foreach ($attemtps as $a) {
+            for ($i = 1; $i <= 3; $i++) {
+                $logs = Log::with('problem.questions')
+                    ->where('student_id', $id)
+                    ->where('level_id', $i)->get();
 
-            $response['level_' . $i] = $logs->map(function ($log) {
-                return [
-                    "id" => $log->id,
-                    "state_key" => $log->state_key,
-                    "level_id" => $log->level_id,
-                    "block_id" => $log->block_id,
-                    "score" => $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 5,
-                    "correct_questions_id" => explode(',', $log->correct_questions_id),
-                    "ppm" => $log->ppm,
-                    "duration" => $log->duration,
-                    "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
-                    "completed_at" => date("Y-m- H:i:s", strtotime($log->created_at)),
-                    "problem" => $log->problem,
-                    "appreciation" => $log->appreciation,
-                ];
-            })->groupBy('state_key');
+                $a['level_' . $i] = $logs->map(function ($log) {
+                    return [
+                        "id" => $log->id,
+                        "state_key" => $log->state_key,
+                        "level_id" => $log->level_id,
+                        "block_id" => $log->block_id,
+                        "score" => $log->correct_questions_id == null ? 0 : count(explode(',', $log->correct_questions_id)) * 5,
+                        "correct_questions_id" => explode(',', $log->correct_questions_id),
+                        "ppm" => $log->ppm,
+                        "duration" => $log->duration,
+                        "started_at" => date("Y-m-d H:i:s", strtotime($log->created_at) - $log->duration),
+                        "completed_at" => date("Y-m- H:i:s", strtotime($log->created_at)),
+                        "problem" => $log->problem,
+                        "appreciation" => $log->appreciation,
+                    ];
+                })->groupBy('state_key');
 
-            $response['level_' . $i . '_keys'] = $logs->unique('state_key')->pluck('state_key');
+                $a['level_' . $i . '_keys'] = $logs->unique('state_key')->pluck('state_key');
+            }
         }
 
+        $response['attempts'] = $attemtps;
         return $response;
+    }
+
+    public function gChart($code_id)
+    {
+        $logs = Log::whereHas('student', function ($q) use ($code_id) {
+            $q->where('code_id', $code_id);
+        })->get();
+        return [
+            'scores' => [
+                [
+                    'name' => 'Nivel 1',
+                    'value' => $logs->where('level_id', 1)->avg('score') ?? 0
+                ],
+                [
+                    'name' => 'Nivel 2',
+                    'value' => $logs->where('level_id', 2)->avg('score') ?? 0
+                ],
+                [
+                    'name' => 'Nivel 3',
+                    'value' => $logs->where('level_id', 3)->avg('score') ?? 0
+                ],
+            ],
+            'ppms' => [
+                [
+                    'name' => 'Nivel 1',
+                    'value' => $logs->where('level_id', 1)->avg('ppm') ?? 0
+                ],
+                [
+                    'name' => 'Nivel 2',
+                    'value' => $logs->where('level_id', 2)->avg('ppm') ?? 0
+                ],
+                [
+                    'name' => 'Nivel 3',
+                    'value' => $logs->where('level_id', 3)->avg('ppm') ?? 0
+                ],
+            ],
+        ];
+    }
+
+    public function gChartExcel($code_id)
+    {
+        return Excel::download(new gChartExcel($code_id), 'Estudiantes.xlsx');
     }
 }

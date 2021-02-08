@@ -25,6 +25,7 @@ class CreateLogsTable extends Migration
             $table->integer('ppm')->nullable();
             $table->integer('ppm_points')->nullable();
             $table->integer('duration');
+            $table->decimal('score');
             $table->text('appreciation')->nullable();
             $table->timestamps();
         });

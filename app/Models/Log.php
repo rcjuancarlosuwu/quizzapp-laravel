@@ -18,6 +18,7 @@ class Log extends Model
         'state_key',
         'correct_questions_id',
         'ppm',
+        'score',
         'ppm_points',
         'duration',
         'appreciation'
