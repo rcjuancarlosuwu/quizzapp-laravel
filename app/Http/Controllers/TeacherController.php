@@ -141,12 +141,9 @@ class TeacherController extends Controller
                         "problem" => $log->problem,
                         "appreciation" => $log->appreciation,
                     ];
-                })->groupBy('state_key');
-
-                $a['level_' . $i . '_keys'] = $logs->unique('state_key')->pluck('state_key');
+                });
             }
         }
-
         $response['attempts'] = $attemtps;
         return $response;
     }
