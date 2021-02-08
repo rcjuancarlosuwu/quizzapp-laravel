@@ -122,6 +122,7 @@ class TeacherController extends Controller
         foreach ($attemtps as $a) {
             for ($i = 1; $i <= 3; $i++) {
                 $logs = Log::with('problem.questions')
+                    ->where('attempt_id', $a->id)
                     ->where('student_id', $id)
                     ->where('level_id', $i)->get();
 
