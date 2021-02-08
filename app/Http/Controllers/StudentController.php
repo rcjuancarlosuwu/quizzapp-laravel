@@ -148,7 +148,6 @@ class StudentController extends Controller
 
     public function results(Request $request)
     {
-
         $logs = Log::with('problem.questions')->where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('level_id', $request->level_id)
             ->where('student_id', $request->user()->id)->orderBy('id', 'desc')->take(2)->get();
         $results = [
