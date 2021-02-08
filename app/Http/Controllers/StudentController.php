@@ -105,7 +105,8 @@ class StudentController extends Controller
     {
         $log = Log::where('attempt_id', $this->currentAttempt($request->user()->id)->id)->where('student_id', $request->user()->id)->get();
         return [
-            'max_level' => $log->max('level_id') ?? 1,
+            'max_level' => $log->count() % 2 == 0 ? ($log->max('level_id') == 3 ? $log->max('level_id') : $log->max('level_id') + 1) :
+                $log->max('level_id'),
             'xp1' => $log->where('level_id', 1)->sum('score'),
             'xp2' => $log->where('level_id', 2)->sum('score'),
             'xp3' => $log->where('level_id', 3)->sum('score')

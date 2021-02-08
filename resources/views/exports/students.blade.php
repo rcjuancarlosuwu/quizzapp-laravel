@@ -17,6 +17,7 @@
             <td>{{ $student->email }}</td>
             <td>{{ $student->school->school }}</td>
             <td>{{ $student->semester }}</td>
+            <td>{{ $student->created_at }}</td>
         </tr>
     @endforeach
     </tbody>

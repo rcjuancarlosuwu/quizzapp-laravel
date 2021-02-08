@@ -50,7 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::put('room/update', [CodeController::class, 'updateRoom']);
             Route::get('rooms', [TeacherController::class, 'allRooms']);
 
-            Route::get('student/excel', [TeacherController::class, 'allStudentsExcel']);
+            Route::get('studentexcel', [TeacherController::class, 'allStudentsExcel']);
 
             Route::get('problems/{state_key}', [ProblemController::class, 'problemsByStateKey']);
 

@@ -90,7 +90,7 @@ class TeacherController extends Controller
 
     public function allStudentsExcel()
     {
-        return Excel::download(new StudentExport, 'estudiantes.xlsx');
+        return Excel::download(new StudentExport, 'Estudiantes.xlsx');
     }
 
     // old controllers
