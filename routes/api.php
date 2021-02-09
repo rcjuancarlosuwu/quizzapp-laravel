@@ -36,7 +36,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // no auth
         Route::post('signup', [TeacherController::class, 'signup']);
-        Route::post('login', [TeacherController::class, 'login']);
+        Route::put('login', [TeacherController::class, 'login']);
 
         Route::group(['middleware' => ['auth:teacher', 'scopes:teacher']], function () {
             Route::get('info', [TeacherController::class, 'teacher']);
