@@ -16,15 +16,15 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'student'], function () {
 
         // no auth
-        Route::post('signup', [StudentController::class, 'signup']);
-        Route::post('login', [StudentController::class, 'login']);
+        Route::put('signup', [StudentController::class, 'signup']);
+        Route::put('login', [StudentController::class, 'login']);
         Route::get('room/{code}', [CodeController::class, 'invitedStudents']);
 
         Route::group(['middleware' => ['auth:student', 'scopes:student']], function () {
             Route::get('info', [StudentController::class, 'student']);
-            Route::post('log', [StudentController::class, 'saveLog']);
-            Route::post('progress', [StudentController::class, 'progress']);
-            Route::post('results', [StudentController::class, 'results']);
+            Route::put('log', [StudentController::class, 'saveLog']);
+            Route::put('progress', [StudentController::class, 'progress']);
+            Route::put('results', [StudentController::class, 'results']);
 
             Route::get('logout', [AuthController::class, 'logout']);
             Route::get('max_level', [StudentController::class, 'studentLevel']);
@@ -35,8 +35,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'teacher'], function () {
 
         // no auth
-        Route::post('signup', [TeacherController::class, 'signup']);
-        Route::post('login', [TeacherController::class, 'login']);
+        Route::put('signup', [TeacherController::class, 'signup']);
+        Route::put('login', [TeacherController::class, 'login']);
 
         Route::group(['middleware' => ['auth:teacher', 'scopes:teacher']], function () {
             Route::get('info', [TeacherController::class, 'teacher']);
@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('student', [TeacherController::class, 'allStudents']);
             Route::get('student/{id}', [TeacherController::class, 'studentInfo']);
 
-            Route::post('room', [CodeController::class, 'matchStudents']);
+            Route::put('room', [CodeController::class, 'matchStudents']);
             Route::get('room/{id}', [CodeController::class, 'roomInfo']);
             Route::put('room/update', [CodeController::class, 'updateRoom']);
             Route::get('rooms', [TeacherController::class, 'allRooms']);

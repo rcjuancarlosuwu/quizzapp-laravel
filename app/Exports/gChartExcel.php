@@ -17,13 +17,10 @@ class gChartExcel implements FromView
 
     public function view(): View
     {
-        $students = Student::withCount(['logs as score' => function ($q) {
-            $q->select(DB::raw('avg(score)'));
-        }, 'logs as ppm' => function ($q) {
-            $q->select(DB::raw('avg(ppm)'));
-        }])->where('code_id', $this->code_id)->orderBy('score')->get();
+        $students = Student::with('logs.problem.questions')->where('code_id', $this->code_id)->orderBy('enrollment_code')->get();
+
         return view('exports.students-gchart', [
-            'students' => $students
+            'students' => $students,
         ]);
     }
 }
